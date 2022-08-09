@@ -11,9 +11,56 @@
 </head>
 <body>
     <!-- Čia aprašysime savo struktūrą -->
-    <div class="container">
-        <div class="alert alert-primary" role="alert">
-            Čia bus mūsų užduočių sąrašas
+    <div class="container mt-5">
+        <!-- 
+            Card komponento dokumentacija
+            https://getbootstrap.com/docs/5.2/components/card/#body 
+        -->
+        <div class="card rounded-0">
+            <div class="card-body">
+                <h1>Awesome TODO List</h1>
+
+                <!-- TODO Item form -->
+                <div class="mt-5">
+                    <form action="" method="GET">
+                        <div class="row">
+                            <div class="col-10">
+                                <!-- Dokumentacija: https://getbootstrap.com/docs/5.2/forms/form-control/ -->
+                                <input type="text" 
+                                name="task_name"
+                                class="form-control form-control-lg" 
+                                placeholder="What do you need to do?">
+                            </div>
+                            <div class="col-2">
+                                <!-- Dokumentacija: https://getbootstrap.com/docs/5.2/components/buttons/ -->
+                                <input type="submit" class="btn btn-primary btn-lg w-100" value="Add">
+
+                            </div>
+                        </div>
+
+
+                        
+                    </form>
+                </div>
+                <!-- END TODO item form -->
+
+                <!-- TODO Items list -->
+                <ul class="list-group mt-3 list-group-flush">
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                      <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+                    </li>
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                      <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+                    </li>
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                      <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+                    </li>
+                  </ul>
+                <!-- END TODO Items list -->
+            </div>
         </div>
     </div>
 
