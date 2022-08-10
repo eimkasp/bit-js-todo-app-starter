@@ -56,3 +56,32 @@ Užduoties galimi statusai:
 
 * Boostrap Getting Started Dokumentacija: https://getbootstrap.com/docs/5.2/getting-started/introduction/
 * jQuery Atsisiuntimas/CDN instaliacija: https://jquery.com/download/
+
+
+## JSON Server
+
+JSON Server galime įrašyti naudodamiesi šia komanda
+`npm install -g json-server`
+
+JSON Server paleisti galime su terminalo komanda
+`json-server --watch db.json`
+
+Ir savo JSON server duombazę pasiekti per: http://localhost:3000/
+
+
+Jei gauname klaida panašią į (Dirbant su Windows): 
+
+```json-server : File C:\Users\Robertas\AppData\Roaming\npm\json-server.ps1 cannot be loaded because running
+scripts is disabled on this system. For more information, see about_Execution_Policies at
+````
+
+Paleisti terminalo komandą: 
+`set-ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+Arba paleisti PowerShell kaip administratoriui (Run as administrator)
+
+
+## REST API 
+
+Savo užduočių duomenis galime pasiekti per:
+http://localhost:3000/tasks
