@@ -6,12 +6,12 @@
       "status": "inprogress"
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Įsirašyti gauti duomenis GET medtodu iš duombazės",
       "status": "inprogress"
     },
     {
-      "id": 1,
+      "id": 3,
       "name": "Atvaizduoti gautus duomenis užduočių lentlėje",
       "status": "inprogress"
     }
