@@ -5,8 +5,9 @@
 var newTaskCount = 0;
 $(document).ready(function() {
     // Palaukia, kol visas HTML/CSS kodas bus užkrautas iš serverio naršyklėje.
-    // alert("Document is ready!");
-    // document.getElementById("inputText").value
+    
+    // Iškviečiame getTasks funkciją
+    getTasks();
 
     /* Click - Event Listener PVZ. */
     /* $("#add_task").click(function(event) {
@@ -46,7 +47,7 @@ $(document).ready(function() {
 
     // Nauja funkcija atvaizduoti naujai pridetai uzduociai.
     function addTask(taskName) {
-        console.log(taskName);
+        // console.log(taskName);
         let taskList = $("#task_list");
 
         let dynamicTaskID = `checkbox_${newTaskCount}`;
@@ -60,5 +61,34 @@ $(document).ready(function() {
         </li>`);
 
         newTaskCount++; // newTaskCount = newTaskCount + 1;
+    }
+
+    function getTasks() {
+        let apiURL = 'http://localhost:3000/tasks';
+        /* jQuery AJAX GET Dokumentacija */
+        /* https://api.jquery.com/jquery.get/ */
+        /* Išsiunčiame užklausą ir gauname grąžintus duomenis. */
+        $.get(apiURL, function(data) {
+            // Atspausdiname gauta rezultata, konsoleje
+            // console.log(data);
+            /* Pereiname per visus grazinto masyvo elementus */
+            for(let i = 0; i < data.length; i++) {
+                // console.log(data[i]);
+                addTask(data[i].name);
+            }
+        });
+    }
+
+    function saveTask() {
+        /* Savankiskam darbui */
+        // Užduoties išsaugojimui, pasikreipti į ta pati URL, bet POST medtodu 
+        let apiURL = 'http://localhost:3000/tasks';
+        let data = {
+            
+        };
+        /* jQuery POST dokumentacija: https://api.jquery.com/jquery.post/ */
+        $.post(apiURL, data , function(data) {
+
+        })
     }
 });

@@ -79,3 +79,9 @@ Paleisti terminalo komandą:
 `set-ExecutionPolicy RemoteSigned -Scope CurrentUser`
 
 Arba paleisti PowerShell kaip administratoriui (Run as administrator)
+
+
+## REST API 
+
+Savo užduočių duomenis galime pasiekti per:
+http://localhost:3000/tasks
