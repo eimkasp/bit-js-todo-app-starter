@@ -30,6 +30,51 @@ $(document).ready(function () {
        
     });
 
+    /* Task Completed Checkbox */
+    /* Šis užrašymas neveikia, nes .task-checkbox elementai buvo sukurti dinamiškai */
+   /*  $(".task-checkbox").change(function() {
+        alert("Checkbox Paspaustas");
+    }); */
+
+    $('#task_list').on('change', '.task-checkbox', function (event) {
+        // console.log("On change funkcija");
+        // Gauname ar musu laukelis pažymėtas ar ne.        
+        console.log(this.checked); 
+        // this.checked grazina true/false reiksme, priklausomai nuo checkbox stadijos.
+        let status = this.checked;
+        let taskID = $(this).parent().data('task');
+        taskStatusUpdate(taskID, status);
+        // console.log("Pasirinkta užduotis: " + taskID);
+    });
+
+    function taskStatusUpdate(taskID, status) {
+        let taskStatusValue;
+        let apiURL = 'http://localhost:3000/tasks/' + taskID;
+
+        if(status === true) {
+            taskStatusValue = "done";
+        } else if(status === false) {
+            taskStatusValue = "inprogress";
+        }
+
+        // PUT - atnaujina visus laukelius, jei laukelis neegzistuoja jis yra sunaikinamas.
+        // PATCH - atnaujina tik tuos laukelius, kuriuos peraveme kaip parametrus.
+        $.ajax({
+            url: apiURL,
+            method: "PATCH", 
+            data: {
+                status: taskStatusValue
+            },
+            error: function() {
+                console.log("Error");
+            },
+            success: function() {
+                console.log("Success");
+            }
+          });
+    }
+
+
 
     /* Click - Event Listener PVZ. */
     /* $("#add_task").click(function(event) {
@@ -94,14 +139,14 @@ $(document).ready(function () {
         let extraTaskClasses = "";
 
         if(task.status === 'done') {
-            taskInputAttributes = "checked disabled";
+            taskInputAttributes = "checked";
             extraTaskClasses = "task-done";
         }
         
         /* Funkcija prepend, prideda papildomus html elementus i elemento pradzia */
         taskList.prepend(`
-        <li class="list-group-item ${extraTaskClasses}">
-            <input class="form-check-input me-1" ${taskInputAttributes} type="checkbox" value="" id="${dynamicTaskID}">
+        <li data-task='${task.id}' class="list-group-item ${extraTaskClasses}">
+            <input class="form-check-input me-1 task-checkbox" ${taskInputAttributes} type="checkbox" value="" id="${dynamicTaskID}">
             <label class="form-check-label" for="${dynamicTaskID}">${task.name} (#${task.id}) (Status: ${task.status}) </label>  
             <button data-task='${task.id}' type="button" class="trinti btn btn-close float-end"></button>
         </li>`);
@@ -169,9 +214,6 @@ $(document).ready(function () {
             success: function() {
                 console.log("Success");
             }
-            // dataType: "html"
           });
-
-        //   alert("Duomenys uzsikrove");
     }
 });
