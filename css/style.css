@@ -12,8 +12,9 @@ body {
     width: 100%;
 }
 
-.trinti {
-    /*  */
+.task-done label {
+    text-decoration: line-through;
+    color: green;
 }
 
 /* Papildomas komentaras */

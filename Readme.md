@@ -42,6 +42,12 @@ Užduoties galimi statusai:
 
 
 ### Papildomos užduotys* 
+
+ - Vietoj confirm ir alert funkcijų panaudoti -  https://sweetalert2.github.io/
+ - Papildomi informaciniai pranešimai - http://ksylvest.github.io/jquery-growl/ arba - https://github.com/jaredreich/notie
+
+
+
  - Panaudoti jQuery Data Tables biblioteką.
  - Panaudoti Webpack + Saas kompiliavimui su `npm install --save bootstrap`
  - Galimybė pridėti užduoties atlikimo "deadline"
