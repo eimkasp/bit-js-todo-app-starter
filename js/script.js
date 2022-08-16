@@ -3,6 +3,7 @@
 /* Standartinė jQuery funkcija */
 /* DOM - Document Object Model */
 var newTaskCount = 0;
+var allTasks = [];
 $(document).ready(function () {
     // Palaukia, kol visas HTML/CSS kodas bus užkrautas iš serverio naršyklėje.
 
@@ -89,12 +90,19 @@ $(document).ready(function () {
 
         let dynamicTaskID = `checkbox_${newTaskCount}`;
 
-        // taskList.append('Labas');
+        let taskInputAttributes = "";
+        let extraTaskClasses = "";
+
+        if(task.status === 'done') {
+            taskInputAttributes = "checked disabled";
+            extraTaskClasses = "task-done";
+        }
+        
         /* Funkcija prepend, prideda papildomus html elementus i elemento pradzia */
         taskList.prepend(`
-        <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="${dynamicTaskID}">
-            <label class="form-check-label" for="${dynamicTaskID}">${task.name} (#${task.id}) </label>  
+        <li class="list-group-item ${extraTaskClasses}">
+            <input class="form-check-input me-1" ${taskInputAttributes} type="checkbox" value="" id="${dynamicTaskID}">
+            <label class="form-check-label" for="${dynamicTaskID}">${task.name} (#${task.id}) (Status: ${task.status}) </label>  
             <button data-task='${task.id}' type="button" class="trinti btn btn-close float-end"></button>
         </li>`);
 
@@ -108,7 +116,8 @@ $(document).ready(function () {
         /* Išsiunčiame užklausą ir gauname grąžintus duomenis. */
         $.get(apiURL, function (data) {
             // Atspausdiname gauta rezultata, konsoleje
-            // console.log(data);
+            console.log(data);
+            allTasks = data;
             /* Pereiname per visus grazinto masyvo elementus */
             for (let i = 0; i < data.length; i++) {
                 // console.log(data[i]);
