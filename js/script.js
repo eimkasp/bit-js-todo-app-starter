@@ -17,7 +17,6 @@ $(document).ready(function () {
 
         let userAnswer = confirm("Are you sure you want to delete this task?"); // Visada pagal vartotojo pasirinkima, si funkcija grazins true/false
        
-
         // console.log($(this).parent());
         // Pašaliname užduoties elementą iš HTML Sąrašo
         if(userAnswer === true) {
@@ -30,20 +29,34 @@ $(document).ready(function () {
        
     });
 
-    /* Task Completed Checkbox */
+   
     /* Šis užrašymas neveikia, nes .task-checkbox elementai buvo sukurti dinamiškai */
    /*  $(".task-checkbox").change(function() {
         alert("Checkbox Paspaustas");
     }); */
 
+     /* Task Completed Checkbox Event listener */
     $('#task_list').on('change', '.task-checkbox', function (event) {
         // console.log("On change funkcija");
         // Gauname ar musu laukelis pažymėtas ar ne.        
         console.log(this.checked); 
         // this.checked grazina true/false reiksme, priklausomai nuo checkbox stadijos.
         let status = this.checked;
-        let taskID = $(this).parent().data('task');
+        let taskID = $(this).parent('li').data('task');
+
+        $(this).parent('li').toggleClass('task-done');
+
+        /* Toggle Class pakeicia sia logika, trumpesne forma */
+        // if(status) {
+        //     $(this).parent('li').addClass('task-done');
+        // } else {
+        //     $(this).parent('li').removeClass('task-done');
+        // }
+
+       
         taskStatusUpdate(taskID, status);
+
+        
         // console.log("Pasirinkta užduotis: " + taskID);
     });
 
@@ -66,10 +79,11 @@ $(document).ready(function () {
                 status: taskStatusValue
             },
             error: function() {
+                $.growl.notice({ title: "Error", message: "wasn't updated", location: 'br' });
                 console.log("Error");
             },
             success: function() {
-                console.log("Success");
+                $.growl.notice({ title: "Task", message: "was updated", location: 'br' });
             }
           });
     }
@@ -147,7 +161,7 @@ $(document).ready(function () {
         taskList.prepend(`
         <li data-task='${task.id}' class="list-group-item ${extraTaskClasses}">
             <input class="form-check-input me-1 task-checkbox" ${taskInputAttributes} type="checkbox" value="" id="${dynamicTaskID}">
-            <label class="form-check-label" for="${dynamicTaskID}">${task.name} (#${task.id}) (Status: ${task.status}) </label>  
+            <label class="form-check-label" for="${dynamicTaskID}">${task.name} (#${task.id})</label>  
             <button data-task='${task.id}' type="button" class="trinti btn btn-close float-end"></button>
         </li>`);
 
@@ -191,6 +205,8 @@ $(document).ready(function () {
             */
             addTask(data);
             // alert("2");
+        }).then(function() {
+            $.growl.notice({ title: "Task", message: "was created", location: 'br' });
         });
 
         // alert("3");
@@ -210,8 +226,10 @@ $(document).ready(function () {
             data: {},
             error: function() {
                 console.log("Error");
+                $.growl.error({ message: "The kitten is attacking!", location: 'br' });
             },
             success: function() {
+                $.growl.error({ title: "Task", message: "was deleted", location: 'br' });
                 console.log("Success");
             }
           });
